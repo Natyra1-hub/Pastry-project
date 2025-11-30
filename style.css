@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    width: 100%;
+    background-color: #e993d1;
+    padding: 10px 20px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+    border-radius: 15px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 50px;
+    white-space: wrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #3b003b;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.shopping-cart img{
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
