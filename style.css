@@ -108,7 +108,7 @@ body{
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 kolona në desktop */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px; 
     padding: 20px 40px;
     justify-items: center;
@@ -135,22 +135,21 @@ body{
     text-align: center;
 }
 
-/* Responsive për tablet dhe celular */
 @media (max-width: 1024px) {
     .gallery {
-        grid-template-columns: repeat(2, 1fr); /* 2 kolona në tablet */
+        grid-template-columns: repeat(2, 1fr); 
     }
 }
 
 @media (max-width: 600px) {
     .gallery {
-        grid-template-columns: 1fr; /* 1 kolonë në celular */
+        grid-template-columns: 1fr; 
         padding: 20px;
     }
 
     .cake img {
-        width: 100%; /* mbush ekranin e vogël */
-        height: auto; /* ruan proporcionin */
+        width: 100%; 
+        height: auto; 
     }
 }
 
