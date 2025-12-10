@@ -1,53 +1,92 @@
-*{
+.footer {
+    background-color:  #F8E3EF; 
+    color:#444;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-section {
+    width: 250px;
+    margin: 15px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.footer-section a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    margin-top: 20px;
+}
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Përdorim një font modern */
 }
-
-body{
-    max-width: 100vw;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
+html {
+    scroll-behavior: smooth;
 }
-
-.header {
+section {
     width: 100%;
-    background-color: white;
-    padding: 10px 20px;
+    min-height: 100vh;
+    padding-top: 0; 
+    /* Gradient i butë për sfondin e sipërm */
+   
 }
 
-.nav {
+/* Navigimi */
+/* Navigimi */
+section nav { 
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
-    height: 60px;
-    box-sizing: border-box;
+    position: relative;
+    
+    /* VENDOSJA E NGJYRËS ORIGJINALE KËTU */
+    background: #F8E3EF; 
+    
+    /* Hija mund të mbahet për efekt më të mirë */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    z-index: 1000;
 }
-
-.logo img {
-    height: 80px;
-    border-radius: 15px;
+section nav .logo img { width: 100px; cursor: pointer; margin: 7px 0; }
+section nav ul { list-style: none; }
+section nav ul li { display: inline-block; margin: 0 20px; }
+section nav ul li a { 
+    text-decoration: none; 
+    color: #444; /* Ngjyrë e errët neutrale */
+    font-weight: 500; 
+    font-size: 16px; 
+    transition: color 0.3s;
 }
+section nav ul li a::after { content: ''; width: 0; height: 3px; background: rgb(151, 91, 101); display: block; transition: 0.3s linear; }
+section nav ul li a:hover::after { width: 100%; }
+section nav ul li a:hover { color: rgb(151, 91, 101); }
 
-.nav-links a {
-    text-decoration: none;
-    font-size: 0.95em;
-    color: #bb4138;
-    font-weight: bold;
-    margin: 0 8px;
-}
-
-.nav-links a:hover {
-    color: #D64545;
-
-}
-
-.shopping-cart img{
-    width: 30px;
-    height: auto;
-    cursor: pointer;
-}
 
 .banner{
      width: 100%;
