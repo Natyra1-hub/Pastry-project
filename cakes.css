@@ -14,7 +14,6 @@ section {
   
 }
 
-
 section nav { 
     display: flex;
     justify-content: space-around;
@@ -53,13 +52,15 @@ section nav ul li a::after { content: '';
         display: block; 
         transition: 0.3s linear;
      }
+
 section nav ul li a:hover::after {
      width: 100%;
      }
+
+
 section nav ul li a:hover { 
     color: rgb(151, 91, 101);
  }
-
 
 section .main { display: flex;
      align-items: center;
@@ -68,6 +69,7 @@ section .main { display: flex;
         top: 0; 
         padding-top: 50px;
      }
+
 section .main .men_text h1 { 
     font-size: 65px;
      position: relative; 
@@ -75,16 +77,20 @@ section .main .men_text h1 {
      color: #222;
       line-height: 1.1;
      }
+     
 section .main .men_text h1 span {
      margin-left: 15px; 
     color: rgb(151, 91, 101); 
     font-family: 'Georgia', serif;
      font-size: 75px;
      }
+     
 section .main .main_image img {
      width: 450px; 
     position: relative; 
     left: -50px; }
+
+    /* per shkrimin P*/
 section p { position: relative;
      text-align: justify; 
      left: 120px; 
@@ -94,3 +100,65 @@ section p { position: relative;
        margin-top: 25px;
         font-size: 15px;
      }
+
+     /* Menyja dhe Kartat */
+.menu {
+     width: 100%;
+      padding: 80px 0;
+       background: #FFF; 
+    }
+.menu h1 {
+     font-size: 55px;
+      text-align: center; 
+      margin-bottom: 40px;
+       color: #222; 
+    }
+.menu h1 span { 
+    color: rgb(151, 91, 101);
+     margin-left: 15px; 
+     font-family: 'Georgia', serif; 
+    }
+
+.menu .menu_box { 
+    width: 95%; 
+    margin: 0 auto;
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+ }
+
+.menu .menu_box .menu_card {
+    width: 300px; 
+    padding: 15px;
+    margin: 0 20px 30px 20px; 
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative; 
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: visible;
+}
+
+.menu .menu_box .menu_card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.menu .menu_box .menu_card .menu_image {
+    width: 100%; 
+    height: 200px; 
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.menu .menu_box .menu_card .menu_image img {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.menu .menu_box .menu_card:hover .menu_image img {
+    transform: scale(1.05); 
+}
