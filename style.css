@@ -73,13 +73,13 @@ section nav ul li a:hover { color: rgb(151, 91, 101); }
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #bb4138;
+    background-color: #d6456c;
     color: white;
     transition: background-color 0.3s ease;
 }
 
 .banner button:hover {
-    background-color: #D64545;
+    background-color: #dd70af;
 }
 
     
@@ -147,8 +147,8 @@ section nav ul li a:hover { color: rgb(151, 91, 101); }
 }
 
 .footer {
-    background-color: #bb4138;
-    color: white;
+    background-color: #F8E3EF;
+    color: #444;
     padding: 40px 0;
     margin-top: 40px;
 }
