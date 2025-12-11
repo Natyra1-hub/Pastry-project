@@ -84,7 +84,7 @@ section .main .men_text h1 span {
     font-family: 'Georgia', serif;
      font-size: 75px;
      }
-     
+
 section .main .main_image img {
      width: 450px; 
     position: relative; 
@@ -161,4 +161,21 @@ section p { position: relative;
 
 .menu .menu_box .menu_card:hover .menu_image img {
     transform: scale(1.05); 
+}
+
+.multi-carousel-section {
+    width: 100%;
+    padding: 60px 0 100px 0;
+    text-align: center;
+ 
+    background: linear-gradient(to bottom, #f7f7f7 0%, #F8E3EF 100%); 
+}
+
+.multi-carousel-section h1 {
+    font-size: 35px;
+    margin-bottom: 50px;
+    color: rgb(151, 91, 101); 
+    font-family: 'Georgia', serif; /* Stili i ngjashëm me titullin e menusë */
+    position: relative;
+    z-index: 10;
 }

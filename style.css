@@ -189,3 +189,12 @@ section nav ul li a:hover { color: rgb(151, 91, 101); }
     border-top: 1px solid rgba(255,255,255,0.3);
     margin-top: 20px;
 }
+
+.multi-carousel-section h1 {
+    font-size: 35px;
+    margin-bottom: 50px;
+    color: rgb(151, 91, 101); /* Ngjyra kryesore */
+    font-family: 'Georgia', serif; /* Stili i ngjashëm me titullin e menusë */
+    position: relative;
+    z-index: 10;
+}
