@@ -224,6 +224,29 @@ section p { position: relative;
     margin-top: 20px;
 }
 
+/* Stili Tooltip/Hover Box */
+.tooltip {
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    position: absolute;
+    z-index: 100; 
+    top: 50%; 
+    left: 0; 
+    right: 0;
+    transform: translateY(-50%);
+    background-color: rgba(151, 91, 101, 0.95); /* Ngjyrë kryesore me transparencë */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+.menu_card:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
   /* TEK PJESA E FOTOGRAFIVE ME SHIGJETA*/
 
 .multi-carousel-section {
