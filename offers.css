@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; 
+}
+html {
+    scroll-behavior: smooth;
+}
+section {
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 0; 
+  
+}
+
+section nav { 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+   
+    background: #F8E3EF; 
+    
+  
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    z-index: 1000;
+}
+section nav .logo img { 
+    width: 100px; 
+    cursor: pointer;
+     margin: 7px 0;
+     }
+section nav ul {
+     list-style: none;
+     }
+section nav ul li { 
+    display: inline-block;
+    margin: 0 20px;
+ }
+section nav ul li a { 
+    text-decoration: none; 
+    color: #444; 
+    font-weight: 500; 
+    font-size: 16px; 
+    transition: color 0.3s;
+}
+section nav ul li a::after { content: '';
+     width: 0;
+      height: 3px;
+       background: rgb(151, 91, 101);
+        display: block; 
+        transition: 0.3s linear;
+     }
+
+section nav ul li a:hover::after {
+     width: 100%;
+     }
+
+
+section nav ul li a:hover { 
+    color: rgb(151, 91, 101);
+ }
+ 
+
+ .menu-container {
+    width: 100%;
+    max-width: 650px;
+    background-color: transparent;
+    padding: 50px 40px;
+    border-radius: 0;
+    box-shadow: none; 
+    font-family: 'Cormorant Garamond', serif; 
+    margin: 40px auto; 
+}
+
+
+body {
+    background-color: #ffffff; 
+}
+
+
+.main-title {
+    font-family: 'Playfair Display', serif; 
+    font-size: 5rem;
+    font-style: italic;
+    font-weight: 400;
+    color:  #c8629c;
+    text-align: center;
+    line-height: 0.8;
+    margin-bottom: 50px;
+}
+
+.d-letter {
+    font-size: 5.5rem;
+    font-weight: 700;
+}
+
+.dessert-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.dessert-img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+
+.item-1, .item-3 {
+    justify-content: flex-start;
+}
+.item-2 {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+
+.info-block {
+    flex-grow: 1;
+}
+
+.align-right {
+    text-align: right;
+    padding-left: 20px;
+}
+
+.align-left {
+    text-align: left;
+    padding-right: 20px;
+}
+
+
+.price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4b2c20;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #e0c8b6; 
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+
+.dessert-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #c8629c;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.description {
+    font-size: 1rem;
+    color: #7d635a;
+    line-height: 1.4;
+}
+
+
+.align-right .dessert-name {
+     position: relative;
+     padding-bottom: 10px;
+     }
+.align-right .dessert-name::after {
+    content: '';
+     position: absolute;
+      bottom: 0; 
+      right: 0;
+    width: 100%;
+     max-width: 150px; 
+     height: 2px; 
+     background-color: #e0c8b6;
+}
+.align-left .dessert-name { 
+    position: relative;
+     padding-bottom: 10px;
+     }
+.align-left .dessert-name::after {
+    content: '';
+     position: absolute;
+      bottom: 0; 
+      left: 0;
+    width: 100%; 
+    max-width: 150px;
+     height: 2px;
+     background-color: #e0c8b6;
+}
+
+ 
+.footer {
+    background-color:  #F8E3EF; 
+    color:#444;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-section {
+    width: 250px;
+    margin: 15px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.footer-section a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    margin-top: 20px;
+}
