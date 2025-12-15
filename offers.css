@@ -242,3 +242,139 @@ body {
     border-top: 1px solid rgba(255,255,255,0.3);
     margin-top: 20px;
 }
+
+@media (max-width: 992px) {
+    
+    /* NAVIGIMI */
+    section nav ul li {
+        margin: 0 10px; 
+    }
+
+    /* KONTENJERI KRYESOR */
+    .menu-container {
+        padding: 40px 20px;
+        max-width: 90%; 
+    }
+
+    /* TITULLI KRYESOR */
+    .main-title {
+        font-size: 4rem;
+        margin-bottom: 40px;
+    }
+    .d-letter {
+        font-size: 4.5rem;
+    }
+
+    /* ELEMENTET E MENUSË */
+    .menu-item {
+        flex-direction: column; /* Stivo imazhin mbi tekst */
+        gap: 15px;
+        text-align: center; /* Qendro tekstin */
+    }
+
+    /* NUK KA NEVOJË PËR KTHIM REVERS NE TABLET */
+    .item-2 {
+        flex-direction: column; 
+        margin-top: 20px; 
+    }
+
+    .dessert-img {
+        width: 80%; /* Imazhi bëhet më i gjerë */
+        max-width: 350px;
+    }
+
+    .info-block, .align-right, .align-left {
+        text-align: center; /* Qendro të gjithë tekstin */
+        padding: 0;
+    }
+    
+    .price {
+         font-size: 1.6rem;
+    }
+
+    .dessert-name {
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+    
+    /* Rregullimi i Vizave Nën Titull */
+    .align-right .dessert-name::after,
+    .align-left .dessert-name::after {
+        left: 50%;
+        transform: translateX(-50%); /* Qendro vizën */
+        right: auto;
+        max-width: 100px;
+    }
+
+    .description {
+        font-size: 0.95rem;
+    }
+    
+    /* FOOTER */
+    .footer-content {
+        justify-content: space-around;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    
+    /* NAVIGIMI */
+    section nav {
+        flex-direction: column; 
+        padding: 10px 0;
+    }
+    section nav ul {
+        margin-top: 10px;
+        padding-bottom: 5px;
+    }
+    section nav ul li {
+        margin: 0 5px;
+    }
+    section nav ul li a {
+        font-size: 13px; 
+    }
+    
+    /* KONTENJERI KRYESOR */
+    .menu-container {
+        padding: 20px 10px;
+    }
+
+    /* TITULLI KRYESOR */
+    .main-title {
+        font-size: 3rem;
+        margin-bottom: 30px;
+    }
+    .d-letter {
+        font-size: 3.5rem;
+    }
+    
+    /* ELEMENTET E MENUSË */
+    .dessert-section {
+        gap: 30px;
+    }
+
+    .dessert-img {
+        width: 100%; /* Përdor gjerësinë e plotë të menusë */
+    }
+
+    .dessert-name {
+        font-size: 1.5rem;
+    }
+    
+    .description {
+        font-size: 0.9rem;
+    }
+
+    /* FOOTER */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
