@@ -42,44 +42,17 @@ section nav ul li a:hover::after { width: 100%; }
 section nav ul li a:hover { color: rgb(151, 91, 101); }
 
 
-.banner{
-     width: 100%;
-    height: 650px; 
-    background-image: url('homepage/2.jpg'); 
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
+.banner {
+    position: relative;
+    width: 100%;
+    height: 650px;
+    overflow: hidden;
 }
 
-.banner h1 {
-    background-color: rgba(0,0,0,0.5);
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 2em;
-    margin: 0;
-}
-
-
-.banner button {
-    margin-top: 20px;
-    padding: 10px 25px;
-    font-size: 1em;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #d6456c;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.banner button:hover {
-    background-color: #dd70af;
+.banner-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* video mbulon komplet banner-in */
 }
 
     
