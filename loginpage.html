@@ -16,9 +16,16 @@
   
         <div class="login-card">
             <h2>Login</h2>
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-            <button>Login</button>
+
+            <form onsubmit="return validateLogin()">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+
+            <p id="errorMsg" style="color:red; font-size:14px;"></p>
+
+            <button type="submit">Login</button>
+            </form>
+
             <div class="links">
                 <a href="#">Forgot password?</a>
                 <a href="signuppage.html">Don't have an account? Sign up</a>
@@ -26,5 +33,7 @@
         </div>
     </div>
 </div>
+
+<script src="loginpage.js"></script>
 </body>
 </html>
