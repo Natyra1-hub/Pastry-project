@@ -16,16 +16,25 @@
 
         <div class="signup-card">
             <h2>Sign Up</h2>
-            <input type="email" placeholder="Email">
-            <input type="text" placeholder="Username">
-            <input type="date" placeholder="Date of Birth">
-            <input type="password" placeholder="Password">
-            <button>Sign Up</button>
+
+            <form onsubmit="return validateSignup()">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="username" placeholder="Username">
+            <input type="date" id="dob" placeholder="Date of Birth">
+            <input type="password" id="password" placeholder="Password">
+
+             <p id="errorMsg" style="color:red; font-size:14px;"></p>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
             <div class="links">
                 <a href="loginpage.html">Already have an account? Login</a>
             </div>
         </div>
     </div>
 </div>
+
+<script src="signuppage.js"></script>
 </body>
 </html>
