@@ -245,18 +245,18 @@ body {
 
 @media (max-width: 992px) {
     
-    /* NAVIGIMI */
+   
     section nav ul li {
         margin: 0 10px; 
     }
 
-    /* KONTENJERI KRYESOR */
+   
     .menu-container {
         padding: 40px 20px;
         max-width: 90%; 
     }
 
-    /* TITULLI KRYESOR */
+   
     .main-title {
         font-size: 4rem;
         margin-bottom: 40px;
@@ -265,26 +265,26 @@ body {
         font-size: 4.5rem;
     }
 
-    /* ELEMENTET E MENUSË */
+   
     .menu-item {
-        flex-direction: column; /* Stivo imazhin mbi tekst */
+        flex-direction: column; 
         gap: 15px;
-        text-align: center; /* Qendro tekstin */
+        text-align: center; 
     }
 
-    /* NUK KA NEVOJË PËR KTHIM REVERS NE TABLET */
+  
     .item-2 {
         flex-direction: column; 
         margin-top: 20px; 
     }
 
     .dessert-img {
-        width: 80%; /* Imazhi bëhet më i gjerë */
+        width: 80%; 
         max-width: 350px;
     }
 
     .info-block, .align-right, .align-left {
-        text-align: center; /* Qendro të gjithë tekstin */
+        text-align: center; 
         padding: 0;
     }
     
@@ -297,7 +297,7 @@ body {
         margin-top: 10px;
     }
     
-    /* Rregullimi i Vizave Nën Titull */
+    
     .align-right .dessert-name::after,
     .align-left .dessert-name::after {
         left: 50%;
@@ -310,7 +310,7 @@ body {
         font-size: 0.95rem;
     }
     
-    /* FOOTER */
+    
     .footer-content {
         justify-content: space-around;
         padding: 0 20px;
@@ -319,7 +319,7 @@ body {
 
 @media (max-width: 576px) {
     
-    /* NAVIGIMI */
+    
     section nav {
         flex-direction: column; 
         padding: 10px 0;
@@ -335,12 +335,12 @@ body {
         font-size: 13px; 
     }
     
-    /* KONTENJERI KRYESOR */
+  
     .menu-container {
         padding: 20px 10px;
     }
 
-    /* TITULLI KRYESOR */
+
     .main-title {
         font-size: 3rem;
         margin-bottom: 30px;
@@ -349,13 +349,13 @@ body {
         font-size: 3.5rem;
     }
     
-    /* ELEMENTET E MENUSË */
+    
     .dessert-section {
         gap: 30px;
     }
 
     .dessert-img {
-        width: 100%; /* Përdor gjerësinë e plotë të menusë */
+        width: 100%; 
     }
 
     .dessert-name {
@@ -366,7 +366,7 @@ body {
         font-size: 0.9rem;
     }
 
-    /* FOOTER */
+   
     .footer-content {
         flex-direction: column;
         align-items: center;
