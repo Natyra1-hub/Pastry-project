@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #f6f6f6;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh; 
+}
+
+
+.sidebar {
+    width: 230px;
+    background: #df96c1;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.sidebar li a {
+    color: white;               
+    text-decoration: none;    
+    display: block;            
+    padding: 12px;           
+    border-radius: 6px;         
+    transition: background 0.3s;
+}
+
+
+.sidebar li a:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+.sidebar li a.active {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+.main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    overflow: hidden;
+}
+
+
+.topbar {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    flex: 1;
+}
+
+.card h3 {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 26px;
+    font-weight: bold;
+    color: #3e1f47;
+}
+
+
+.chart-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+
+.table-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto; 
+    flex: 1; 
+}
+
+.table-box h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f0f0f0;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+}
+
+.pending { background: orange; }
+.ready { background: green; }
+.delivered { background: #555; }
+
+
+.simple-chart {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.simple-chart .bars {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 180px; 
+    margin-bottom: 10px;
+}
+
+.simple-chart .bar {
+    width: 30px;
+    background: #df96c1;
+    border-radius: 5px 5px 0 0;
+    transition: 0.3s;
+}
+
+.simple-chart .bar:hover {
+    background: #7a4b8e;
+}
+
+.simple-chart .labels {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}

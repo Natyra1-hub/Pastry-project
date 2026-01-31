@@ -7,7 +7,7 @@ if(isset($_SESSION['role']) && $_SESSION['role'] != "admin"){
 ?>
 
 
-
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,15 @@ if(isset($_SESSION['role']) && $_SESSION['role'] != "admin"){
                 <li><a href="cakes.php">Cakes</a></li>
                 <li><a href="offers.php">Offers</a></li>
                 <li><a href="build.php">Build your own</a></li>
-            </ul>
+                <li><a href="dashboard.php">Dashboard</a></li>
+
+
+                <?php
+                if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
+                echo '<li><a href="dashboard.php">Dashboard</a></li>';
+            }
+            ?>
+        </ul>
 
             <a href="loginpage.php" class="shopping-cart">
             <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
