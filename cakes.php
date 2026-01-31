@@ -1,4 +1,26 @@
-<!DOCTYPE html>
+<?php
+
+require_once 'Database.php'; 
+
+$db = new Database();
+$pdo = $db->getConnection();
+
+
+$queryCakes = "SELECT * FROM cakes LIMIT 8";
+$stmtCakes = $pdo->prepare($queryCakes);
+$stmtCakes->execute();
+$cakes = $stmtCakes->fetchAll(PDO::FETCH_ASSOC);
+
+
+$queryBday = "SELECT * FROM birthday_cakes LIMIT 8";
+$stmtBday = $pdo->prepare($queryBday);
+$stmtBday->execute();
+$bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
+?>
+ 
+ 
+ 
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
