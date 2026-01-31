@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== "admin"){
+    header("Location: loginpage.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +23,7 @@
     <aside class="sidebar">
         <h2>🍰 Pastry Admin</h2>
         <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="offers.php">Offers</a></li>
             <li><a href="cakes.php">Cakes</a></li>
             <li><a href="build.php">Build Your Own</a></li>
@@ -55,7 +65,7 @@
     <div class="bar" style="height:50%" title="Wed: 150€"></div>
     <div class="bar" style="height:25%" title="Thu: 80€"></div>
     <div class="bar" style="height:67%" title="Fri: 200€"></div>
-    <div class="bar" style="height:100%" title="Sat: 300€"></div> <!-- maksimum -->
+    <div class="bar" style="height:100%" title="Sat: 300€"></div> 
     <div class="bar" style="height:83%" title="Sun: 250€"></div>
 </div>
     <div class="labels">

@@ -1,11 +1,6 @@
 <?php 
 session_start();
-$hide = "";
-if(isset($_SESSION['role']) && $_SESSION['role'] != "admin"){
-    $hide = "hide"; 
-}
 ?>
-
 
     
 <!DOCTYPE html>
@@ -32,10 +27,10 @@ if(isset($_SESSION['role']) && $_SESSION['role'] != "admin"){
 
 
                 <?php
-                if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
-                echo '<li><a href="dashboard.php">Dashboard</a></li>';
-            }
-            ?>
+        if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
+            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+        }
+        ?>
         </ul>
 
             <a href="loginpage.php" class="shopping-cart">
