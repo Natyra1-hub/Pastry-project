@@ -3,7 +3,6 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-// Marrim ofertat nga tabela
 $query = "SELECT * FROM offers";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
@@ -83,7 +82,5 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             © 2025 SweetCakes. All Rights Reserved.
         </div>
     </footer>
-
-    <script src="cakes.js"></script>
 </body>
 </html>

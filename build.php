@@ -1,12 +1,12 @@
 <?php
-// 1. LIDHJA ME DATABASE
+
 require_once 'Database.php'; 
 $db = new Database();
 $pdo = $db->getConnection();
 
 $message = ""; 
 
-// 2. LOGJIKA E RUAJTJES SË POROSISË
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $madhesia = $_POST['madhesia'];
     $shija = $_POST['shija-biskotes'];
