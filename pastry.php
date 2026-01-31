@@ -1,3 +1,13 @@
+<?php 
+session_start();
+$hide = "";
+if(isset($_SESSION['role']) && $_SESSION['role'] != "admin"){
+    $hide = "hide"; 
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +24,13 @@
                 <img src="homepage/logoja.png" alt="">
             </div>
             <ul>
-           <li><a href="pastry.html">Home</a></li>
-                <li><a href="cakes.html">Cakes</a></li>
-                <li><a href="offers.html">Offers</a></li>
-                <li><a href="build.html">Build your own</a></li>
+           <li><a href="pastry.php">Home</a></li>
+                <li><a href="cakes.php">Cakes</a></li>
+                <li><a href="offers.php">Offers</a></li>
+                <li><a href="build.php">Build your own</a></li>
             </ul>
 
-            <a href="loginpage.html" class="shopping-cart">
+            <a href="loginpage.php" class="shopping-cart">
             <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
         </a>
 
@@ -34,42 +44,42 @@
  
     <div class="gallery">
         <div class="cake">
-            <a href="CherryChocolate.html">
+            <a href="CherryChocolate.php">
             <img src="homepage/photo9.jpg" alt="Cake 1">
             <p class="cake-name">Cherry Chocolate Delight</p>
             </a>
         </div>
 
         <div class="cake">
-            <a href="RedVelvet.html">
+            <a href="RedVelvet.php">
             <img src="homepage/photo2.jpg" alt="Cake 2">
             <p class="cake-name">Red Velvet</p>
             </a>
         </div>
 
         <div class="cake">
-            <a href="StrawberrySurprise.html">
+            <a href="StrawberrySurprise.php">
             <img src="homepage/photo3.jpg" alt="Cake 3">
             <p class="cake-name">Strawberry Surprise</p>
             </a>
         </div>
 
         <div class="cake">
-            <a href="RaspberryRose.html">
+            <a href="RaspberryRose.php">
             <img src="homepage/photo8.jpg" alt="Cake 4">
             <p class="cake-name">Raspberry Rose</p>
             </a>
         </div>
 
          <div class="cake">
-            <a href="CherryKiss.html">
+            <a href="CherryKiss.php">
             <img src="homepage/photo4.jpg" alt="Cake 5">
             <p class="cake-name">Cherry Kiss</p>
             </a>
         </div>
 
         <div class="cake">
-            <a href="FruityDream.html">
+            <a href="FruityDream.php">
             <img src="homepage/photo10.jpg" alt="Cake 6">
             <p class="cake-name">Fruity Dream</p>
             </a>

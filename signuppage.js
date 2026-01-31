@@ -8,27 +8,26 @@ function validateSignup() {
     errorMsg.textContent = "";
 
     if (email === "" || username === "" || dob === "" || password === "") {
-        errorMsg.textContent = "Ju lutem plotësoni të gjitha fushat!";
+        errorMsg.textContent = "Please fill all fields!";
         return false;
     }
 
     
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-        errorMsg.textContent = "Email i pa saktë!";
+        errorMsg.textContent = "Invalid email format!";
         return false;
     }
 
     if (username.length < 3) {
-        errorMsg.textContent = "Username duhet të ketë së paku 3 karaktere!";
+        errorMsg.textContent = "Username must be at least 3 characters!";
         return false;
     }
     
     if (password.length < 6) {
-        errorMsg.textContent = "Password duhet të ketë së paku 6 karaktere!";
+        errorMsg.textContent = "Password must be at least 6 characters!";
         return false;
     }
 
-    alert("Regjistrimi u krye me sukses!");
     return true;
 }

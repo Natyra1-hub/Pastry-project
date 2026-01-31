@@ -1,3 +1,5 @@
+<?php ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +15,13 @@
                 <img src="homepage/logoja.png" alt="">
             </div>
             <ul>
-           <li><a href="pastry.html">Home</a></li>
-                <li><a href="cakes.html">Cakes</a></li>
-                <li><a href="offers.html">Offers</a></li>
-                <li><a href="build.html">Build your own</a></li>
+           <li><a href="pastry.php">Home</a></li>
+                <li><a href="cakes.php">Cakes</a></li>
+                <li><a href="offers.php">Offers</a></li>
+                <li><a href="build.php">Build your own</a></li>
             </ul>
 
-            <a href="loginpage.html" class="shopping-cart">
+            <a href="loginpage.php" class="shopping-cart">
             <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
         </a>
     </nav>

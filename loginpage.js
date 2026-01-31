@@ -3,13 +3,16 @@ function validateLogin() {
     const password = document.getElementById("password").value.trim();
     const errorMsg = document.getElementById("errorMsg");
 
+    errorMsg.textContent = "";
+
  if (username === "" || password === "") {
-        errorMsg.textContent = "Ju lutem plotësoni të gjitha fushat!";
+        errorMsg.textContent = "Please fill all fields!";
         return false;
     }
+    
 
     if (password.length < 6) {
-        errorMsg.textContent = "Password duhet të ketë së paku 6 karaktere!";
+        errorMsg.textContent = "Password must be at least 6 characters!";
         return false;
     }
 

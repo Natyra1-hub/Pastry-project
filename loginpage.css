@@ -6,7 +6,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* ndalon scroll */
+    overflow: hidden; 
 }
 
 
@@ -22,10 +22,16 @@ html, body {
     display: flex;
     width: 80%;
     max-width: 900px;
-    height: 500px;
+    min-height: 520px;   
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+#errorMsg {
+    min-height: 22px;   
+    margin-top: 5px;
+    font-size: 14px;
+    color: red;
 }
 
 .login-image {
