@@ -11,22 +11,14 @@ $stmtCakes = $pdo->prepare($queryCakes);
 $stmtCakes->execute();
 $cakes = $stmtCakes->fetchAll(PDO::FETCH_ASSOC);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1a9f88fefccea2b91bc923a4599a9efc5d1b4b3b
 $queryBday = "SELECT * FROM birthday_cakes LIMIT 8";
 $stmtBday = $pdo->prepare($queryBday);
 $stmtBday->execute();
 $bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<<<<<<< HEAD
-
-<!DOCTYPE html>
-=======
  
  <!DOCTYPE html>
->>>>>>> 1a9f88fefccea2b91bc923a4599a9efc5d1b4b3b
 <html lang="en">
 <head>
     <meta charset="UTF-8">
