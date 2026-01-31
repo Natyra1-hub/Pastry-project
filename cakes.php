@@ -18,37 +18,31 @@ $stmtBday->execute();
 $bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
 ?>
  
- 
- 
  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SweetCakes - Menu</title>
     <link rel="stylesheet" href="cakes.css">
-  
 </head>
 <body>
     <section id="Cakes">
         <nav>
             <div class="logo">
-                <img src="photocakes/Logo.png" alt="">
+                <img src="photocakes/Logo.png" alt="Logo">
             </div>
             <ul>
                 <li><a href="pastry.html">Home</a></li>
-                
-                <li><a href="cakes.html">Cakes</a></li>
-            
-                <li><a href="offers.html">Offers</a></li>
-                <li><a href="build.html">Build your own</a></li>
+                <li><a href="cakes.php">Cakes</a></li>
+                <li><a href="offers.php">Offers</a></li>
+                <li><a href="build.php">Build your own</a></li>
             </ul>
-
             <a href="loginpage.html" class="shopping-cart">
-            <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
-        </a>
-            
+                <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
+            </a>
         </nav>
+
         <div class="main">
             <div class="men_text">
                 <h1>Taste the<span>cake you’ve been</span><br>dreaming of</h1>
@@ -57,250 +51,80 @@ $bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
                 <img src="photocakes/download.png" >
             </div>
         </div>
-                <p>Welcome to our world of sweetness, where every cake is created with passion and imagination. We believe that great flavor comes from quality ingredients, attention to detail, and a whole lot of love.
-Explore our wide variety of tastes—from velvety chocolate and creamy vanilla to refreshing fruit blends and gourmet specialty flavors. No matter what you choose, every bite promises joy, warmth, and unforgettable sweetness.</p>
+        <p>Welcome to our world of sweetness, where every cake is created with passion and imagination...</p>
     </section>
-               <div class="menu" id="Cakes">
-    <h1>Our <span>Menu</span></h1>
-    <div class="menu_box">
-        
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/3c5074ca3ee53693117c6821fcaeeb38.jpg" >
-            </div>
-            
-            <div class="tooltip">
-                <p>A creamy vanilla panna cotta with a soft base, topped with fresh strawberry sauce and pieces of real strawberries. Light, refreshing, and beautifully balanced.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Strawberry Dream Panna Cotta</h2>
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
 
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/887efef5f98cdbd3096c083b6e060965.jpg" >
-            </div>
-            
-            <div class="tooltip">
-                <p>Our Strawberry Cheesecake features a smooth and creamy cream cheese filling set over a buttery biscuit base. It is topped with a fresh strawberry coulis and garnished with ripe strawberry slices for a perfectly balanced, refreshing sweetness.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Strawberry Cheesecake</h2>
-              
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
+    <div class="menu">
+        <h1>Our <span>Menu</span></h1>
+        <div class="menu_box">
+            <?php if (count($cakes) > 0): ?>
+                <?php foreach ($cakes as $cake): ?>
+                    <div class="menu_card">
+                        <div class="menu_image">
+                            <img src="photocakes/<?php echo htmlspecialchars($cake['imazhi']); ?>" alt="Cake">
+                        </div>
+                        <div class="tooltip">
+                            <p><?php echo htmlspecialchars($cake['pershkrimi']); ?></p>
+                        </div>
+                        <div class="menu_info">
+                            <h2><?php echo htmlspecialchars($cake['emri']); ?></h2>
+                            <h3>$<?php echo number_format($cake['cmimi'], 2); ?></h3>
+                            <div class="menu_icon"></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nuk u gjet asnjë tortë në menu.</p>
+            <?php endif; ?>
         </div>
-
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/7592f63569bd1843c6d80d929ad4a3e7.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>Our Strawberry Cream Roll is a light and fluffy sponge cake filled with a smooth vanilla cream and fresh strawberry pieces. Rolled to perfection and finished with a soft dusting of powdered sugar, this dessert offers a perfect balance of airy texture and fruity freshness.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Strawberry Cream Roll</h2>
-               
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-        
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/c334c7df3cbcfc399d24dba517d1853c.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>Our Strawberry & Whipped Cream Cake is a light and refreshing dessert made with soft vanilla sponge, layers of fluffy whipped cream, and fresh strawberry slices. Finished with a smooth strawberry glaze and a gentle dusting of sugar, this treat is creamy, fruity, and beautifully balanced.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Strawberry & Whipped Cream Cake</h2>
-               
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-        
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/d312dbb215ff5b2e6497e4f1fa5f0a45.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>Red Velvet tradicionale me krem vanilje-maskarpone dhe shije delikate.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>WHITE CHOCOLATE RASPBERRY CHEESECAKE</h2>
-                
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/fc30d87d3c662cd522993234b5323994.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>A soft, moist chocolate cake with a delicate pink frosting. Layers may include chocolate ganache or cream, creating a rich and sweet combination. Perfectly decorated for a fun, elegant, or celebratory touch.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Pink Chocolate Cake</h2>
-                
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/d0bee7e73ff3cd54e30c86728ddd5fbd.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>A light sponge cake mixed with sweet cherry chips and layered with a creamy almond-infused whipped topping. Finished with optional cherry filling and almond flakes for added flavor and texture.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Cherry Chip Sponge Cake with Almond Whip</h2>
-              
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-
-        <div class="menu_card">
-            <div class="menu_image">
-                <img src="photocakes/642517be65141ddc1e1a9c3f2012280f.jpg">
-            </div>
-            
-            <div class="tooltip">
-                <p>A moist chocolate sponge layered with fresh strawberries and creamy chocolate frosting. Sweet, fruity, and indulgent, often finished with chocolate shavings or strawberry slices for decoration.</p>
-            </div>
-            
-            <div class="menu_info">
-                <h2>Strawberry Chocolate Cake</h2>
-               
-                <h3>$20.00</h3>
-                <div class="menu_icon"></div>
-            </div>
-        </div>
-        
     </div>
-</div>
-    </div>
+
     <div class="multi-carousel-section">
+        <h1>We also offer birthday cakes.</h1> 
+        <div class="carousel-wrapper">
+            <a class="prev-multi" onclick="moveCarousel(-1)">&#10094;</a>
 
-    <h1>We also offer birthday cakes.</h1> 
-    
-    <!-- Fotot levizese -->
-     <div class="carousel-wrapper">
-        <a class="prev-multi" onclick="moveCarousel(-1)">&#10094;</a>
-
-        <div class="carousel-viewport">
-            <div class="carousel-track">
-
-                <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/2a50bfb2cdf2c39fe085dcad591cfc96.jpg" alt="Foto1">
-                    </div>
-                    
+            <div class="carousel-viewport">
+                <div class="carousel-track">
+                    <?php if (count($bday_cakes) > 0): ?>
+                        <?php foreach ($bday_cakes as $bday): ?>
+                            <div class="carousel-card">
+                                <div class="card-image">
+                                    <img src="photocakes/<?php echo htmlspecialchars($bday['imazhi']); ?>" alt="Birthday Cake">
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Shto foto në tabelën birthday_cakes!</p>
+                    <?php endif; ?>
                 </div>
+            </div> 
+            <a class="next-multi" onclick="moveCarousel(1)">&#10095;</a>
+        </div>
+    </div>
 
-                <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/9a4bb6b30038787264a61199bc5820df.jpg" alt="Foto2">
-                    </div>
-                   
-                </div>
-
-                <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/34d57f0ba5f44ce4c893100aa8bd41b4.jpg" alt="Foto3">
-                    </div>
-                   
-                </div>
-
-                <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/40f990477891f278439e530735ebd6d4.jpg" alt="Foto4">
-                    </div>
-                  
-                </div>
-                 <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/d0e55363394c4f91c47c7e947bdbe6cb.jpg" alt="Foto5">
-                    </div>
-                  
-                </div>
-
-                 <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/f669b1a4181462011ca30742ea0e241e.jpg" alt="Foto6">
-                    </div>
-                  
-                </div>
-
-                 <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/98c30780601eccd6796affe9582efb3a.jpg" alt="Foto7">
-                    </div>
-                  
-                </div>
-
-                 <div class="carousel-card">
-                    <div class="card-image">
-                        <img src="photocakes/0118ea03e338268f6b30ea9d08189392.jpg" alt="Foto8">
-                    </div>
-                  
-                </div>
-
-              
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>SweetCakes</h3>
+                <p>Cakes made with love and the finest ingredients.</p>
             </div>
-         </div> 
-         <a class="next-multi" onclick="moveCarousel(1)">&#10095;</a>
-     </div>
-
-</div>
-<footer class="footer">
-    <div class="footer-content">
-
-        <div class="footer-section about">
-            <h3>SweetCakes</h3>
-            <p>Cakes made with love and the finest ingredients.</p>
+            <div class="footer-section location">
+                <h4>Location</h4>
+                <p>Prishtina, Kosovo</p>
+                <p>Rr. Bulevardi Bill Clinton</p>
+            </div>
+            <div class="footer-section contact">
+                <h4>Contact Us</h4>
+                <p>Email: info@sweetcakes.com</p>
+                <p>Phone: +383 44 000 000</p>
+            </div>
         </div>
-
-        <div class="footer-section location">
-            <h4>Location</h4>
-            <p>Prishtina, Kosovo</p>
-            <p>Rr. Bulevardi Bill Clinton</p>
+        <div class="footer-bottom">
+            © 2025 SweetCakes. All Rights Reserved.
         </div>
+    </footer>
 
-        <div class="footer-section contact">
-            <h4>Contact Us</h4>
-            <p>Email: info@sweetcakes.com</p>
-            <p>Phone: +383 44 000 000</p>
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        © 2025 SweetCakes. All Rights Reserved.
-    </div>
-</footer>
- <script src="cakes.js"></script>
-  </body>
+    <script src="cakes.js"></script>
+</body>
 </html>
