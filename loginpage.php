@@ -2,16 +2,9 @@
 session_start();
 
 if(isset($_SESSION['username'])){
-    if($_SESSION['role'] === "admin"){
-        header("Location: dashboard.php");
-    }else{
-        header("location:pastry.php");
-    }
-   exit();
+    header("Location: pastry.php");
+    exit();
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +50,7 @@ if(isset($_SESSION['username'])){
 
             <div class="links">
                 <a href="pastry.php">Back to Homepage</a>
-            </div>
+    </div>
 
         </div>
     </div>

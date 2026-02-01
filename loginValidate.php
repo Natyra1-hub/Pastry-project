@@ -24,12 +24,8 @@ if(isset($_POST['loginBtn'])) {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            if($user['role'] === "admin"){
-                header("Location: dashboard.php");
-            } else {
-                header("Location: pastry.php");
-            }
-            exit;
+            header("Location: pastry.php");
+            exit();
         } else {
             echo "Invalid password!";
         }

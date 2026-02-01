@@ -24,15 +24,20 @@
             <input type="date" id="dob" name="dob" placeholder="Date of Birth">
             <input type="password" id="password" name="password" placeholder="Password">
 
-            <p id="errorMsg">
-                <?php
+    <p id="errorMsg">
+        <?php
+            if(isset($_SESSION['error'])){
+                echo "<span style='color:red;'>{$_SESSION['error']}</span>";
+                unset($_SESSION['error']);
+            }
 
-                    if(isset($_SESSION['error'])){
-                        echo $_SESSION['error'];
-                        unset($_SESSION['error']);
-                    }
-                    ?>
-            </p>
+            if(isset($_SESSION['success'])){
+                echo "<span style='color:green;'>{$_SESSION['success']}</span>";
+                unset($_SESSION['success']);
+            }
+        ?>
+    </p>
+
 
             <button type="submit" name="signupBtn">Sign Up</button>
         </form>
