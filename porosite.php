@@ -17,7 +17,7 @@ if (isset($_GET['remove'])) {
 
 if (isset($_POST['konfirmo_porosine'])) {
     if (!$isLoggedIn) {
-        header("Location: loginpage.html");
+        header("Location: loginpage.php");
         exit();
     }
 
@@ -100,7 +100,7 @@ if (isset($_POST['konfirmo_porosine'])) {
             <?php if (!$isLoggedIn): ?>
                 <div style="text-align:center; border: 2px dashed #ff69b4; padding:20px; color: #6c0c31; border-radius: 10px;">
                     <p style="font-weight: bold;">⚠️ Duhet të kyçeni për të dërguar porosinë.</p>
-                    <a href="loginpage.html" class="btn-confirm" style="display:block; text-decoration:none;">KYÇU KËTU</a>
+                    <a href="loginpage.php" class="btn-confirm" style="display:block; text-decoration:none;">KYÇU KËTU</a>
                 </div>
             <?php else: ?>
                 <form method="POST">
