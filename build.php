@@ -7,7 +7,7 @@ $pdo = $db->getConnection();
 
 $message = ""; 
 
-// LOGJIKA PËR SHTIMIN
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['shto_ne_shporte'])) {
     if(!isset($_SESSION['user_id'])) {
         header("Location: loginpage.php");
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['shto_ne_shporte'])) {
     $user_id = $_SESSION['user_id'];
     $cmimi = ($madhesia == "20") ? 65.00 : 45.00;
     
-    // 1. KRIJO EMER DINAMIK (Që klienti ta shohë në shportë çka ka zgjedhur)
+  
     $emri_plote = "Torta Custom ($shija, $mbushja)";
 
     $item = [
@@ -36,13 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['shto_ne_shporte'])) {
     $_SESSION['cart'][] = $item;
 
     try {
-        // 2. RUAJTJA NË DATABASE
+       
         $sql = "INSERT INTO orders (user_id, emri_klientit, adresa, telefoni, totali, statusi) 
                 VALUES (?, ?, 'Custom Order (Build)', 'N/A', ?, 'Pending')";
         $stmt = $pdo->prepare($sql);
         
         if ($stmt->execute([$user_id, $_SESSION['username'], $cmimi])) {
-            // 3. RIDREJTIMI AUTOMATIK
+           
             header("Location: porosite.php");
             exit();
         }
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['shto_ne_shporte'])) {
     }
 }
 
-// Llogaritja e numrit bëhet këtu në fund që të jetë gjithmonë e saktë
+
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -63,7 +63,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>Build Your Own - SweetCakes</title>
     <link rel="stylesheet" href="build.css">
     <style>
-        /* Stili për Badge-in e shportës */
+       
         .shopping-cart-container {
             position: relative;
             display: inline-block;

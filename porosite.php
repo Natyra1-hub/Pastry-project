@@ -5,7 +5,7 @@ require_once 'Database.php';
 $isLoggedIn = isset($_SESSION['user_id']); 
 $porosiaKryer = false;
 
-// LOGJIKA PËR TË HEQUR NJË PRODUKT NGA SHPORTA
+
 if (isset($_GET['remove'])) {
     $id_per_heqje = $_GET['remove'];
     if (isset($_SESSION['cart'][$id_per_heqje])) {
@@ -50,7 +50,7 @@ if (isset($_POST['konfirmo_porosine'])) {
     <title>SweetCakes - Checkout</title>
     <link rel="stylesheet" href="offers.css">
     <style>
-        /* CSS-I YT I PËRDITËSUAR */
+        
         .checkout-container { max-width: 900px; margin: 50px auto; background: #F8E3EF; padding: 40px; border-radius: 15px; border: 1px solid #ff69b4; color: #6c0c31; font-family: sans-serif; }
         .info-box { background: rgba(227, 153, 186, 0.81); padding: 20px; border-radius: 10px; margin-bottom: 20px; color: white; }
         .cart-table { width: 100%; border-collapse: collapse; }
