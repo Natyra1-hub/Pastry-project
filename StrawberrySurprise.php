@@ -1,4 +1,18 @@
-<?php ?>
+<?php
+require_once "database.php"; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE title = :title LIMIT 1");
+$stmt->execute(['title' => 'Strawberry Surprise']);
+$cake = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$cake) {
+    die("Cake not found");
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,43 +41,20 @@
         </a>
     </nav>
 
-    <div class="cake-container">
+     <div class="cake-container">
 
-    <img src="homepage/photo3.jpg" alt="Strawberry Surprise Cake">
+        <img src="<?= $cake['image'] ?>" alt="<?= htmlspecialchars($cake['title']) ?> Cake">
 
-    <div class="cake-text">
-        <h1>🍓 Strawberry Surprise Cake Ingredients</h1>
+        <div class="cake-text">
+            <h1>🍓 <?= htmlspecialchars($cake['title']) ?> Cake Ingredients</h1>
 
-        <h2>For the Vanilla Cake</h2>
-        <ul>
-        <li>2 ½ cups (315 g) all-purpose flour</li>
-        <li>2 ½ tsp baking powder</li>
-        <li>½ tsp salt</li>
-        <li>1 ½ cups (300 g) sugar</li>
-        <li>¾ cup (170 g) unsalted butter, room temperature</li>
-        <li>4 large eggs</li>
-        <li>1 cup (240 ml) milk</li>
-        <li>2 tsp vanilla extract</li>
-    </ul>
+           
+            <p><?= nl2br(htmlspecialchars($cake['description'])) ?></p>
 
-    <h2>For the Strawberry Filling</h2>
-    <ul>
-        <li>400 g fresh strawberries, chopped</li>
-        <li>⅓ cup (70 g) sugar</li>
-        <li>1 tbsp lemon juice</li>
-        <li>1 tbsp cornstarch + 2 tbsp water</li>
-    </ul>
-
-    <h2>For the Vanilla Buttercream</h2>
-    <ul>
-        <li>1 ½ cups (340 g) unsalted butter, room temperature</li>
-        <li>4 cups (480 g) powdered sugar</li>
-        <li>2–3 tbsp heavy cream or milk</li>
-        <li>2 tsp vanilla extract</li>
-    </ul>
-
+           
+            <?= $cake['ingredients'] ?>
+        </div>
     </div>
-</div>
 </section>
 </body>
 </html>

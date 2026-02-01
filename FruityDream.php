@@ -1,4 +1,17 @@
-<?php ?>
+<?php
+require_once "database.php"; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE title = :title LIMIT 1");
+$stmt->execute(['title' => 'Fruity Dream']);
+$cake = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$cake) {
+    die("Cake not found");
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,37 +39,17 @@
         </a>
     </nav>
 
-     <div class="cake-container">
-        <img src="homepage/photo10.jpg" alt="Fruity Dream Cake">
+        <div class="cake-container">
+            <img src="<?= $cake['image'] ?>" alt="<?= htmlspecialchars($cake['title']) ?> Cake">
 
-        <div class="cake-text">
-            <h1>🍒🫐 Fruity Dream Cake Ingredients</h1>
+            <div class="cake-text">
+                <h1>🍒🫐 <?= htmlspecialchars($cake['title']) ?> Cake Ingredients</h1>
 
-            <h2>For the Cheesecake Crust</h2>
-            <ul>
-                <li>1 ½ cups (150 g) graham cracker crumbs (or crushed cookies)</li>
-                <li>⅓ cup (70 g) unsalted butter, melted</li>
-                <li>2 tbsp sugar</li>
-            </ul>
+                <p><?= nl2br(htmlspecialchars($cake['description'])) ?></p>
 
-            <h2>For the Cheesecake Filling</h2>
-            <ul>
-                <li>500 g cream cheese, room temperature</li>
-                <li>1 cup (200 g) sugar</li>
-                <li>3 large eggs</li>
-                <li>1 tsp vanilla extract</li>
-                <li>½ cup (120 ml) sour cream or heavy cream</li>
-            </ul>
-
-            <h2>For the Fruit Topping</h2>
-            <ul>
-                <li>400 g fresh or frozen fruits (berries, cherries, mango, or mixed fruits)</li>
-                <li>⅓ cup (70 g) sugar</li>
-                <li>1 tbsp lemon juice</li>
-                <li>1 tbsp cornstarch + 2 tbsp water</li>
-            </ul>
+                <?= $cake['ingredients'] ?>
+            </div>
         </div>
-    </div>
 </section>
 
 </body>

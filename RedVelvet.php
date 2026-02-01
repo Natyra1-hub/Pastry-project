@@ -1,4 +1,17 @@
-<?php ?>
+<?php
+require_once "database.php"; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE title = :title LIMIT 1");
+$stmt->execute(['title' => 'Red Velvet']);
+$cake = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$cake) {
+    die("Cake not found");
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,43 +42,16 @@
 
     <div class="cake-container">
 
-    <img src="homepage/photo2.jpg" alt="Red Velvet Cake">
+        <img src="<?= $cake['image'] ?>" alt="<?= htmlspecialchars($cake['title']) ?> Cake">
 
-    <div class="cake-text">
-        <h1>🍰 Red Velvet Cake Ingredients</h1>
+        <div class="cake-text">
+            <h1>🍰 <?= htmlspecialchars($cake['title']) ?> Cake Ingredients</h1>
 
-        <h2>For the Red Velvet Cake</h2>
-        <ul>
-            <li>2 ½ cups (315 g) all-purpose flour</li>
-            <li>2 tbsp cocoa powder</li>
-            <li>1 ½ cups (300 g) sugar</li>
-            <li>1 tsp baking soda</li>
-            <li>1 tsp salt</li>
-            <li>2 large eggs</li>
-            <li>1 cup (240 ml) vegetable oil</li>
-            <li>1 cup (240 ml) buttermilk</li>
-            <li>2 tbsp red food coloring</li>
-            <li>1 tsp vanilla extract</li>
-            <li>1 tsp white vinegar</li>
-        </ul>
+            <p><?= nl2br(htmlspecialchars($cake['description'])) ?></p>
 
-        <h2>For the Cream Cheese Frosting</h2>
-        <ul>
-            <li>500 g cream cheese, room temperature</li>
-            <li>1 cup (225 g) unsalted butter, room temperature</li>
-            <li>3 cups (360 g) powdered sugar</li>
-            <li>2 tsp vanilla extract</li>
-        </ul>
-
-        <h2>For the Strawberry Filling (optional but recommended)</h2>
-        <ul>
-            <li>300 g strawberries, chopped</li>
-            <li>2–3 tbsp sugar</li>
-            <li>1 tsp lemon juice</li>
-        </ul>
-
+            <?= $cake['ingredients'] ?>
+        </div>
     </div>
-</div>
 </section>
 </body>
 </html>

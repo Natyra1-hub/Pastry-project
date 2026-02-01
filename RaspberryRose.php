@@ -1,4 +1,17 @@
-<?php ?>
+<?php
+require_once "database.php"; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE title = :title LIMIT 1");
+$stmt->execute(['title' => 'Raspberry Rose']);
+$cake = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$cake) {
+    die("Cake not found");
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,38 +40,17 @@
         </a>
     </nav>
 
-     <div class="cake-container">
-        <img src="homepage/photo8.jpg" alt="Raspberry Rose Cake">
+       <div class="cake-container">
+
+        <img src="<?= $cake['image'] ?>" alt="<?= htmlspecialchars($cake['title']) ?> Cake">
 
         <div class="cake-text">
-            <h1>🫐 Raspberry Rose Cake Ingredients</h1>
+            <h1>🫐 <?= htmlspecialchars($cake['title']) ?> Cake Ingredients</h1>
 
-            <h2>For the Vanilla Cake</h2>
-            <ul>
-                <li>2 ½ cups (315 g) all-purpose flour</li>
-                <li>2 ½ tsp baking powder</li>
-                <li>½ tsp salt</li>
-                <li>1 ½ cups (300 g) sugar</li>
-                <li>¾ cup (170 g) unsalted butter, room temperature</li>
-                <li>4 large eggs</li>
-                <li>1 cup (240 ml) milk</li>
-                <li>2 tsp vanilla extract</li>
-            </ul>
+        
+            <p><?= nl2br(htmlspecialchars($cake['description'])) ?></p>
 
-            <h2>For the Raspberry Filling</h2>
-            <ul>
-                <li>400 g fresh raspberries (or mixed berries), chopped</li>
-                <li>⅓ cup (70 g) sugar</li>
-                <li>1 tbsp lemon juice</li>
-                <li>1 tbsp cornstarch + 2 tbsp water</li>
-            </ul>
-
-            <h2>For the Raspberry Drip Ganache</h2>
-            <ul>
-                <li>½ cup (120 ml) heavy cream</li>
-                <li>½ cup (90 g) fresh raspberries</li>
-                <li>100 g white chocolate</li>
-            </ul>
+            <?= $cake['ingredients'] ?>
         </div>
     </div>
 </section>

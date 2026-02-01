@@ -1,4 +1,17 @@
-<?php ?>
+<?php
+require_once "database.php"; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE title = :title LIMIT 1");
+$stmt->execute(['title' => 'Cherry Chocolate Delight']);
+$cake = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$cake) {
+    die("Cake not found");
+}
+?>
 
 
 <!DOCTYPE html>
@@ -30,38 +43,14 @@
         </nav>
 
     <div class="cake-container">
-
-        <img src="homepage/photo9.jpg" alt="Cherry Chocolate Delight ">
+        <img src="<?= $cake['image'] ?>" alt="<?= htmlspecialchars($cake['title']) ?> Cake">
 
         <div class="cake-text">
-            <h1>🍫 Cherry Chocolate Delight Ingredients</h1>
+            <h1>🍫 <?= htmlspecialchars($cake['title']) ?> Ingredients</h1>
 
-            <h2>For the Cherry Chocolate Cake</h2>
-            <ul>
-                <li>1 ¾ cups (220 g) all-purpose flour</li>
-                <li>¾ cup (75 g) cocoa powder</li>
-                <li>2 cups (400 g) sugar</li>
-                <li>1 ½ tsp baking powder</li>
-                <li>1 ½ tsp baking soda</li>
-                <li>1 tsp salt</li>
-                <li>2 large eggs</li>
-                <li>1 cup (240 ml) milk</li>
-                <li>½ cup (120 ml) vegetable oil</li>
-                <li>2 tsp vanilla extract</li>
-                <li>1 cup (240 ml) hot water or hot coffee</li>
-            </ul>
+            <p><?= nl2br(htmlspecialchars($cake['description'])) ?></p>
 
-            <h2>For the Chocolate Ganache (Drip & Filling)</h2>
-            <ul>
-                <li>1 cup (240 ml) heavy cream</li>
-                <li>200 g dark chocolate, chopped</li>
-            </ul>
-
-            <h2>For Decoration</h2>
-            <ul>
-                <li>Fresh cherries with stems</li>
-                <li>Powdered sugar (for dusting)</li>
-            </ul>
+            <?= $cake['ingredients'] ?>
         </div>
     </div>
 </section>
