@@ -5,7 +5,7 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-// LOGJIKA E SHPORTËS (AJAX)
+
 if (isset($_POST['add_to_cart'])) {
     $item = [
         'id' => $_POST['id'],
@@ -19,7 +19,7 @@ if (isset($_POST['add_to_cart'])) {
     
     $_SESSION['cart'][] = $item;
 
-    // Kontrollon nëse kërkesa është AJAX
+
     if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
         echo count($_SESSION['cart']);
         exit; 
@@ -29,7 +29,7 @@ if (isset($_POST['add_to_cart'])) {
     exit();
 }
 
-// Marrja e të dhënave nga Database
+
 $cakes = $pdo->query("SELECT * FROM cakes LIMIT 8")->fetchAll(PDO::FETCH_ASSOC);
 $bday_cakes = $pdo->query("SELECT * FROM birthday_cakes LIMIT 8")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -58,7 +58,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         }
         .add-cart-btn:hover { background-color: #ff1493; transform: scale(1.02); }
         
-        /* Animacioni për Badge kur shtohet diçka */
+        
         @keyframes bump {
             0% { transform: scale(1); }
             50% { transform: scale(1.4); }
@@ -186,10 +186,10 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 badge.innerText = count;
                 badge.style.display = 'block';
                 badge.classList.remove('bump');
-                void badge.offsetWidth; // Reset animacionin
+                void badge.offsetWidth; 
                 badge.classList.add('bump');
                 
-                // Feedback në buton
+                
                 const originalText = btn.innerText;
                 btn.innerText = "U shtua! ✓";
                 btn.style.backgroundColor = "#28a745";

@@ -4,7 +4,7 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-// Logjika e shportës (Cart)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['ajax_mode'])) {
     $item = [
         'id' => $_POST['id'],
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
     exit;
 }
 
-// Marrja e ofertave nga Databaza
+
 $query = "SELECT * FROM offers";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
