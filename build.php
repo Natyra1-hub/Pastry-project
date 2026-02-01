@@ -1,4 +1,5 @@
 <?php
+
 session_start(); 
 require_once 'Database.php'; 
 
@@ -6,55 +7,56 @@ $db = new Database();
 $pdo = $db->getConnection();
 
 $message = ""; 
+$success_message = ""; 
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['shto_ne_shporte'])) {
-    if(!isset($_SESSION['user_id'])) {
-        header("Location: loginpage.php");
-        exit();
-    }
-
-    $madhesia = $_POST['madhesia'];
-    $shija = $_POST['shija-biskotes'];
-    $mbushja = $_POST['mbushja'];
-    $mbishkrimi = htmlspecialchars($_POST['mbishkrimi']);
-    $user_id = $_SESSION['user_id'];
-    $cmimi = ($madhesia == "20") ? 65.00 : 45.00;
     
-  
-    $emri_plote = "Torta Custom ($shija, $mbushja)";
+    $madhesia   = $_POST['madhesia'];
+    $shija      = $_POST['shija-biskotes'];
+    $mbushja    = $_POST['mbushja'];
+    $mbishkrimi = htmlspecialchars($_POST['mbishkrimi']);
+    
+
+    $cmimi = ($madhesia == "20") ? 65.00 : 45.00;
+
 
     $item = [
         'id' => 'custom_' . time(),
-        'emri' => $emri_plote,
-        'cmimi' => $cmimi
+        'emri' => "Torta Custom ($shija)",
+        'cmimi' => $cmimi,
+        'detajet' => "Madhësia: $madhesia persona, Mbushja: $mbushja"
     ];
-    
+
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
     $_SESSION['cart'][] = $item;
 
-    try {
-       
-        $sql = "INSERT INTO orders (user_id, emri_klientit, adresa, telefoni, totali, statusi) 
-                VALUES (?, ?, 'Custom Order (Build)', 'N/A', ?, 'Pending')";
-        $stmt = $pdo->prepare($sql);
-        
-        if ($stmt->execute([$user_id, $_SESSION['username'], $cmimi])) {
-           
-            header("Location: porosite.php");
-            exit();
+    
+    if (isset($_SESSION['user_id'])) {
+        try {
+            $user_id = $_SESSION['user_id'];
+            $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Klient";
+
+            $sql = "INSERT INTO orders (user_id, emri_klientit, madhesia, shija_biskotes, mbushja, mbishkrimi, cmimi) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$user_id, $username, $madhesia, $shija, $mbushja, $mbishkrimi, $cmimi]);
+            
+            $success_message = "Torta u shtua me sukses në shportë!";
+        } catch (PDOException $e) {
+            $message = "Gabim në DB: " . $e->getMessage();
         }
-    } catch (PDOException $e) {
-        $message = "Gabim: " . $e->getMessage();
+    } else {
+        
+        $success_message = "U shtua në shportë! (Identifikohuni për ta ruajtur në histori)";
     }
 }
 
-
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +65,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>Build Your Own - SweetCakes</title>
     <link rel="stylesheet" href="build.css">
     <style>
-       
+        
         .shopping-cart-container {
             position: relative;
             display: inline-block;
@@ -72,7 +74,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             position: absolute;
             top: -5px;
             right: -5px;
-            background: red;
+            background: #ff4d4d;
             color: white;
             border-radius: 50%;
             padding: 2px 7px;
@@ -83,47 +85,61 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         .alert-error {
             background: #ff4d4d;
             color: white;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
             border-radius: 5px;
-            margin-bottom: 10px;
+            margin: 10px auto;
+            max-width: 800px;
+        }
+        .alert-success {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px auto;
+            max-width: 800px;
+            font-weight: bold;
+        }
+       
+        .order-button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
     <section id="Cakes">
-      <nav>
-    <div class="logo">
-        <img src="homepage/logoja.png" alt="Logo">
-    </div>
-    
-    <ul>
-        <li><a href="pastry.php">Home</a></li>
-        <li><a href="cakes.php">Cakes</a></li>
-        <li><a href="offers.php">Offers</a></li>
-        <li><a href="build.php">Build your own</a></li>
-
-        <?php if(isset($_SESSION['role']) && $_SESSION['role'] === "admin"): ?>
-            <li><a href="dashboard.php" style="color: #ff69b4; font-weight: bold;">Dashboard</a></li>
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION['user_id'])): ?>
-            <li><a href="logout.php">Logout</a></li>
-        <?php else: ?>
-            <li><a href="loginpage.php">Login</a></li>
-        <?php endif; ?>
-    </ul>
-
-    <a href="porosite.php" class="shopping-cart-container">
-        <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
-        <?php if($cart_count > 0): ?>
-            <span class="cart-count-badge"><?php echo $cart_count; ?></span>
-        <?php endif; ?>
-    </a>
-</nav>
+        <nav>
+            <div class="logo">
+                <img src="homepage/logoja.png" alt="Logo">
+            </div>
+            <ul>
+                <li><a href="pastry.php">Home</a></li>
+                <li><a href="cakes.php">Cakes</a></li>
+                <li><a href="offers.php">Offers</a></li>
+                <li><a href="build.php">Build your own</a></li>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === "admin"): ?>
+                    <li><a href="dashboard.php" style="color: #ff69b4; font-weight: bold;">Dashboard</a></li>
+                <?php endif; ?>
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <li><a href="logout.php">Logout</a></li>
+                <?php else: ?>
+                    <li><a href="loginpage.php">Login</a></li>
+                <?php endif; ?>
+            </ul>
+            <a href="porosite.php" class="shopping-cart-container">
+                <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
+                <?php if($cart_count > 0): ?>
+                    <span class="cart-count-badge"><?php echo $cart_count; ?></span>
+                <?php endif; ?>
+            </a>
+        </nav>
 
         <?php if($message != ""): ?>
             <div class="alert-error"><?php echo $message; ?></div>
+        <?php endif; ?>
+        <?php if($success_message != ""): ?>
+            <div class="alert-success"><?php echo $success_message; ?></div>
         <?php endif; ?>
 
         <main class="cake-builder-container">
@@ -154,7 +170,6 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <input type="text" id="mbishkrimi" name="mbishkrimi" placeholder="Shkruaj urimin..." onkeyup="document.getElementById('preview-text').innerText = this.value || 'Gëzuar!'">
 
                 <hr>
-
                 <div class="summary-panel">
                     <h3>Përmbledhje & Porosi</h3>
                     <p>Çmimi Total: <span id="cmimi-total">€45.00</span></p>
@@ -180,19 +195,10 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             <div class="footer-section location">
                 <h4>Location</h4>
                 <p>Prishtina, Kosovo</p>
-                <p>Rr. Bulevardi Bill Clinton</p>
-            </div>
-            <div class="footer-section contact">
-                <h4>Contact Us</h4>
-                <p>Email: info@sweetcakes.com</p>
-                <p>Phone: +383 44 000 000</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            © 2026 SweetCakes. All Rights Reserved.
-        </div>
+        <div class="footer-bottom">© 2026 SweetCakes. All Rights Reserved.</div>
     </footer>
-
     <script src="build.js"></script>
 </body>
 </html>
