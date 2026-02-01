@@ -1,11 +1,11 @@
 <?php
-session_start(); // E domosdoshme për shportën
+session_start(); 
 require_once 'Database.php'; 
 
 $db = new Database();
 $pdo = $db->getConnection();
 
-// 1. Logjika për shtimin në shportë (njësoj si te offers.php)
+
 if (isset($_POST['add_to_cart'])) {
     $item = [
         'id' => $_POST['id'],
@@ -18,11 +18,11 @@ if (isset($_POST['add_to_cart'])) {
     }
     
     $_SESSION['cart'][] = $item;
-    header("Location: porosite.php"); // Ridrejtimi direkt te shporta
+    header("Location: porosite.php"); 
     exit();
 }
 
-// Marrja e të dhënave nga DB
+
 $queryCakes = "SELECT * FROM cakes LIMIT 8";
 $stmtCakes = $pdo->prepare($queryCakes);
 $stmtCakes->execute();
@@ -33,7 +33,7 @@ $stmtBday = $pdo->prepare($queryBday);
 $stmtBday->execute();
 $bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
 
-// Llogaritja e numrit për Navbar
+
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -45,7 +45,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>SweetCakes - Menu</title>
     <link rel="stylesheet" href="cakes.css">
     <style>
-        /* Stilimi për Badge dhe butonin e shportës */
+        
         .shopping-cart-container {
             position: relative;
             display: inline-block;
@@ -93,7 +93,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php else: ?>
-                    <li><a href="loginpage.php">Log In</a></li>
+                    <li><a href="loginpage.php">Login</a></li>
                 <?php endif; ?>
             </ul>
 

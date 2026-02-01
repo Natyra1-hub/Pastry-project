@@ -4,7 +4,7 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-// Logjika për shtimin në shportë
+
 if (isset($_POST['add_to_cart'])) {
     $item = [
         'id' => $_POST['id'],
@@ -26,7 +26,7 @@ $stmt = $pdo->prepare($query);
 $stmt->execute();
 $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Llogaritja e numrit për ikonën e shportës
+
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -130,6 +130,27 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </main>
         </div>
+           <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>SweetCakes</h3>
+                <p>Cakes made with love and the finest ingredients.</p>
+            </div>
+            <div class="footer-section location">
+                <h4>Location</h4>
+                <p>Prishtina, Kosovo</p>
+                <p>Rr. Bulevardi Bill Clinton</p>
+            </div>
+            <div class="footer-section contact">
+                <h4>Contact Us</h4>
+                <p>Email: info@sweetcakes.com</p>
+                <p>Phone: +383 44 000 000</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 SweetCakes. All Rights Reserved.
+        </div>
+    </footer>
     </section>
 </body>
 </html>
