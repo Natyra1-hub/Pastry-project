@@ -24,7 +24,7 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <img src="offerspage/Logo.png" alt="Logo">
             </div>
             <ul>
-                <li><a href="pastry.html">Home</a></li>
+                <li><a href="pastry.php">Home</a></li>
                 <li><a href="cakes.php">Cakes</a></li>
                 <li><a href="offers.php">Offers</a></li>
                 <li><a href="build.php">Build your own</a></li>

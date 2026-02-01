@@ -24,10 +24,11 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] !== "admin"){
         <h2>🍰 Pastry Admin</h2>
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="pastry.php">Home</a></li>
             <li><a href="offers.php">Offers</a></li>
             <li><a href="cakes.php">Cakes</a></li>
             <li><a href="build.php">Build Your Own</a></li>
-            <li><a href="loginpage.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </aside>
 

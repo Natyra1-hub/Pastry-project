@@ -1,39 +1,39 @@
 <?php
-include_once 'users.php';
+session_start();
+require_once __DIR__ . "/database.php";
 
-if(isset($_POST['loginBtn'])){
-    if(empty($_POST['username']) || empty($_POST['password'])){
+$db = new Database();
+$conn = $db->getConnection();
+
+if(isset($_POST['loginBtn'])) {
+
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    if(empty($username) || empty($password)){
         echo "Please fill all fields!";
-    }else{
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        exit;
+    }
 
-        $i=0;
-        foreach($users as $user){
-            $i++;
-            if($username == $user['username'] && $password == $user['password']){
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->execute(['username' => $username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-               session_start();
+    if($user){
+        if(password_verify($password, $user['PASSWORD'])){
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
 
-               $_SESSION['username']=$username;
-               $_SESSION['password'] = $password;
-               $_SESSION['role'] = $user['role'];
-
-               header("location:pastry.php");
-                exit();
-
-            }else{
-                if($i == sizeOf($users)){
-                    echo "Username or Password is incorrect!";
-                    exit();
-                }
-                
+            if($user['role'] === "admin"){
+                header("Location: dashboard.php");
+            } else {
+                header("Location: pastry.php");
             }
+            exit;
+        } else {
+            echo "Invalid password!";
         }
-
-
+    } else {
+        echo "Username not found!";
     }
 }
-
-
-?>

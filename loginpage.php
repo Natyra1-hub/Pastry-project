@@ -2,7 +2,11 @@
 session_start();
 
 if(isset($_SESSION['username'])){
-   header("location:pastry.php");
+    if($_SESSION['role'] === "admin"){
+        header("Location: dashboard.php");
+    }else{
+        header("location:pastry.php");
+    }
    exit();
 }
 
@@ -28,8 +32,9 @@ if(isset($_SESSION['username'])){
   
         <div class="login-card">
             <h2>Login</h2>
+            
 
-            <form action="loginValidate.php" method="post" onsubmit="return validateLogin()">
+            <form action="loginValidate.php" method="post">
             <input type="text" id="username" name="username" placeholder="Username" required> 
             <input type="password" id="password" name="password"  placeholder="Password" required>
 
@@ -49,6 +54,11 @@ if(isset($_SESSION['username'])){
             <div class="links">
                 <a href="signuppage.php">Don't have an account? Sign up</a>
             </div>
+
+            <div class="links">
+                <a href="pastry.php">Back to Homepage</a>
+            </div>
+
         </div>
     </div>
 </div>

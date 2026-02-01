@@ -23,14 +23,22 @@ session_start();
                 <li><a href="cakes.php">Cakes</a></li>
                 <li><a href="offers.php">Offers</a></li>
                 <li><a href="build.php">Build your own</a></li>
-                <li><a href="dashboard.php">Dashboard</a></li>
 
 
-                <?php
-        if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
+            <?php
+            if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
             echo '<li><a href="dashboard.php">Dashboard</a></li>';
-        }
+            }
         ?>
+
+          <?php
+            if(isset($_SESSION['username'])){
+            echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+            echo '<li><a href="loginpage.php">Login</a></li>';
+            }
+        ?>
+        
         </ul>
 
             <a href="loginpage.php" class="shopping-cart">
