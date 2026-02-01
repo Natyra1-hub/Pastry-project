@@ -1,31 +1,32 @@
 <?php
-session_start(); 
-require_once 'Database.php'; 
+session_start();
+require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
 
-if (isset($_POST['add_to_cart'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['ajax_mode'])) {
     $item = [
         'id' => $_POST['id'],
         'emri' => $_POST['emri'],
         'cmimi' => $_POST['cmimi']
     ];
-    
+
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
-    
+
     $_SESSION['cart'][] = $item;
-    header("Location: porosite.php"); 
-    exit();
+
+    echo count($_SESSION['cart']);
+    exit;
 }
+
 
 $query = "SELECT * FROM offers";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
@@ -38,6 +39,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>SweetCakes - Offers</title>
     <link rel="stylesheet" href="offers.css">
     <style>
+       
         .shopping-cart-container {
             position: relative;
             display: inline-block;
@@ -46,13 +48,14 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             position: absolute;
             top: -5px;
             right: -5px;
-            background: red;
+            background: #ff0000;
             color: white;
             border-radius: 50%;
             padding: 2px 7px;
             font-size: 12px;
             font-weight: bold;
             border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .add-cart-btn {
             background-color: #ff69b4;
@@ -65,6 +68,12 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             transition: 0.3s;
         }
         .add-cart-btn:hover { background-color: #ff1493; }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        .bump { animation: bounce 0.3s ease-in-out; }
     </style>
 </head>
 <body>
@@ -90,11 +99,13 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </ul>
 
-            <a href="porosite.php" class="shopping-cart-container">
+            <a href="porosite.php" class="shopping-cart-container" id="cart-link">
                 <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
-                <?php if($cart_count > 0): ?>
-                    <span class="cart-count-badge"><?php echo $cart_count; ?></span>
-                <?php endif; ?>
+                <span id="cart-badge-holder">
+                    <?php if($cart_count > 0): ?>
+                        <span class="cart-count-badge"><?php echo $cart_count; ?></span>
+                    <?php endif; ?>
+                </span>
             </a>
         </nav>
 
@@ -115,11 +126,12 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                 <h2 class="dessert-name"><?php echo htmlspecialchars($offer['emri']); ?></h2>
                                 <p class="description"><?php echo htmlspecialchars($offer['pershkrimi']); ?></p>
                                 
-                                <form method="POST">
+                                <form class="add-to-cart-form">
                                     <input type="hidden" name="id" value="<?php echo $offer['id']; ?>">
                                     <input type="hidden" name="emri" value="<?php echo htmlspecialchars($offer['emri']); ?>">
                                     <input type="hidden" name="cmimi" value="<?php echo $offer['cmimi']; ?>">
-                                    <button type="submit" name="add_to_cart" class="add-cart-btn">Shto në Shportë</button>
+                                    <input type="hidden" name="ajax_mode" value="1">
+                                    <button type="submit" class="add-cart-btn">Shto në Shportë</button>
                                 </form>
                             </div>
                             <img src="offerspage/<?php echo htmlspecialchars($offer['imazhi']); ?>" alt="Dessert" class="dessert-img">
@@ -130,27 +142,62 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </main>
         </div>
-           <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>SweetCakes</h3>
-                <p>Cakes made with love and the finest ingredients.</p>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>SweetCakes</h3>
+                    <p>Cakes made with love and the finest ingredients.</p>
+                </div>
+                <div class="footer-section location">
+                    <h4>Location</h4>
+                    <p>Prishtina, Kosovo</p>
+                    <p>Rr. Bulevardi Bill Clinton</p>
+                </div>
+                <div class="footer-section contact">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@sweetcakes.com</p>
+                    <p>Phone: +383 44 000 000</p>
+                </div>
             </div>
-            <div class="footer-section location">
-                <h4>Location</h4>
-                <p>Prishtina, Kosovo</p>
-                <p>Rr. Bulevardi Bill Clinton</p>
+            <div class="footer-bottom">
+                © 2026 SweetCakes. All Rights Reserved.
             </div>
-            <div class="footer-section contact">
-                <h4>Contact Us</h4>
-                <p>Email: info@sweetcakes.com</p>
-                <p>Phone: +383 44 000 000</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            © 2026 SweetCakes. All Rights Reserved.
-        </div>
-    </footer>
+        </footer>
     </section>
+
+    <script>
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('.add-cart-btn');
+            const originalText = btn.innerText;
+            const formData = new FormData(this);
+
+            fetch('offers.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(count => {
+               
+                const badgeHolder = document.getElementById('cart-badge-holder');
+                badgeHolder.innerHTML = `<span class="cart-count-badge bump">${count}</span>`;
+                
+               
+                btn.innerText = "U shtua! ✅";
+                btn.style.backgroundColor = "#811a4a";
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "#ff69b4";
+                    document.querySelector('.cart-count-badge').classList.remove('bump');
+                }, 1500);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+    </script>
 </body>
 </html>
