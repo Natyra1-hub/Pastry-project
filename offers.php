@@ -4,7 +4,7 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-
+// Logjika e shportës (Cart)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['ajax_mode'])) {
     $item = [
         'id' => $_POST['id'],
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
     exit;
 }
 
-
+// Marrja e ofertave nga Databaza
 $query = "SELECT * FROM offers";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
@@ -39,66 +39,42 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>SweetCakes - Offers</title>
     <link rel="stylesheet" href="offers.css">
     <style>
-       
-        .shopping-cart-container {
-            position: relative;
-            display: inline-block;
-        }
+        .shopping-cart-container { position: relative; display: inline-block; }
         .cart-count-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff0000;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 12px;
-            font-weight: bold;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: absolute; top: -5px; right: -5px;
+            background: #ff0000; color: white; border-radius: 50%;
+            padding: 2px 7px; font-size: 12px; font-weight: bold;
+            border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .add-cart-btn {
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: 0.3s;
+            background-color: #ff69b4; color: white; border: none;
+            padding: 10px 15px; cursor: pointer; border-radius: 5px;
+            margin-top: 10px; transition: 0.3s;
         }
         .add-cart-btn:hover { background-color: #ff1493; }
         
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
         .bump { animation: bounce 0.3s ease-in-out; }
     </style>
 </head>
 <body>
     <section id="Cakes">
         <nav>
-            <div class="logo">
-                <img src="homepage/logoja.png" alt="Logo">
-            </div>
+            <div class="logo"><img src="homepage/logoja.png" alt="Logo"></div>
             <ul>
                 <li><a href="pastry.php">Home</a></li>
                 <li><a href="cakes.php">Cakes</a></li>
                 <li><a href="offers.php">Offers</a></li>
                 <li><a href="build.php">Build your own</a></li>
-
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === "admin"): ?>
                     <li><a href="dashboard.php">Dashboard</a></li>
                 <?php endif; ?>
-
                 <?php if(isset($_SESSION['username'])): ?>
                     <li><a href="logout.php">Logout</a></li>
                 <?php else: ?>
                     <li><a href="loginpage.php">Login</a></li>
                 <?php endif; ?>
             </ul>
-
             <a href="porosite.php" class="shopping-cart-container" id="cart-link">
                 <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
                 <span id="cart-badge-holder">
@@ -111,10 +87,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
         <div class="menu-container">
             <header class="menu-header">
-                <h1 class="main-title">
-                    <span class="d-letter">O</span>UR
-                    <span class="d-letter">O</span>FFERS
-                </h1>
+                <h1 class="main-title">OUR OFFERS</h1>
             </header>
 
             <main class="dessert-section">
@@ -134,7 +107,9 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                     <button type="submit" class="add-cart-btn">Shto në Shportë</button>
                                 </form>
                             </div>
-                            <img src="offerspage/<?php echo htmlspecialchars($offer['imazhi']); ?>" alt="Dessert" class="dessert-img">
+                            
+                            <img src="<?php echo htmlspecialchars($offer['imazhi']); ?>" alt="Dessert" class="dessert-img">
+                            
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -142,60 +117,41 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </main>
         </div>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section about">
-                    <h3>SweetCakes</h3>
-                    <p>Cakes made with love and the finest ingredients.</p>
-                </div>
-                <div class="footer-section location">
-                    <h4>Location</h4>
-                    <p>Prishtina, Kosovo</p>
-                    <p>Rr. Bulevardi Bill Clinton</p>
-                </div>
-                <div class="footer-section contact">
-                    <h4>Contact Us</h4>
-                    <p>Email: info@sweetcakes.com</p>
-                    <p>Phone: +383 44 000 000</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                © 2026 SweetCakes. All Rights Reserved.
-            </div>
-        </footer>
     </section>
+      <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>SweetCakes</h3>
+                <p>Cakes made with love and the finest ingredients.</p>
+            </div>
+            <div class="footer-section location">
+                <h4>Location</h4>
+                <p>Prishtina, Kosovo</p>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 SweetCakes. All Rights Reserved.</div>
+    </footer>
 
     <script>
     document.querySelectorAll('.add-to-cart-form').forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const btn = this.querySelector('.add-cart-btn');
             const originalText = btn.innerText;
             const formData = new FormData(this);
 
-            fetch('offers.php', {
-                method: 'POST',
-                body: formData
-            })
+            fetch('offers.php', { method: 'POST', body: formData })
             .then(response => response.text())
             .then(count => {
-               
                 const badgeHolder = document.getElementById('cart-badge-holder');
                 badgeHolder.innerHTML = `<span class="cart-count-badge bump">${count}</span>`;
-                
-               
                 btn.innerText = "U shtua! ✅";
                 btn.style.backgroundColor = "#811a4a";
-                
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.style.backgroundColor = "#ff69b4";
-                    document.querySelector('.cart-count-badge').classList.remove('bump');
                 }, 1500);
-            })
-            .catch(error => console.error('Error:', error));
+            });
         });
     });
     </script>
