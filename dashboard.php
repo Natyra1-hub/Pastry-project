@@ -6,8 +6,31 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] !== "admin"){
     header("Location: loginpage.php");
     exit;
 }
-?>
 
+$db = new Database();
+$pdo = $db->getConnection();
+
+
+$totalProducts = $pdo->query("SELECT (SELECT COUNT(*) FROM products) + (SELECT COUNT(*) FROM cakes) + (SELECT COUNT(*) FROM offers)")->fetchColumn();
+$ordersToday = $pdo->query("SELECT COUNT(*) FROM porosite WHERE DATE(data_krijimit) = CURDATE()")->fetchColumn();
+$totalRevenue = $pdo->query("SELECT SUM(shuma_totale) FROM porosite")->fetchColumn() ?: 0;
+$totalUsers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+
+
+if (isset($_GET['delete_id']) && isset($_GET['from'])) {
+    $id = $_GET['delete_id'];
+    $table = $_GET['from'];
+    $allowed = ['products', 'cakes', 'offers', 'porosite', 'users', 'birthday_cakes'];
+    
+    if (in_array($table, $allowed)) {
+        $pdo->prepare("DELETE FROM $table WHERE id = ?")->execute([$id]);
+        header("Location: dashboard.php?view=$table");
+        exit;
+    }
+}
+
+$view = isset($_GET['view']) ? $_GET['view'] : 'porosite';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,98 +43,102 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] !== "admin"){
 <body>
 
 <div class="dashboard">
-
     <aside class="sidebar">
         <h2>🍰 Pastry Admin</h2>
         <ul>
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="pastry.php">Home</a></li>
-            <li><a href="offers.php">Offers</a></li>
-            <li><a href="cakes.php">Cakes</a></li>
-            <li><a href="build.php">Build Your Own</a></li>
+
+        <li><a href="pastry.php">🌐 View Website</a></li>
+        
+        <hr style="opacity: 0.2; margin: 10px 0;">
+
+            <li><a href="dashboard.php" class="<?= !isset($_GET['view']) ? 'active' : '' ?>">📊 Dashboard</a></li>
+         <li>
+            <a href="dashboard.php?view=products" class="<?= (isset($_GET['view']) && $_GET['view'] == 'products') ? 'active' : '' ?>">🏠 Home Products</a>
+        </li>
+
+        <li>
+            <a href="dashboard.php?view=cakes" class="<?= (isset($_GET['view']) && $_GET['view'] == 'cakes') ? 'active' : '' ?>">🎂 Cakes Menu</a>
+        </li>
+
+        <li>
+            <a href="dashboard.php?view=offers" class="<?= (isset($_GET['view']) && $_GET['view'] == 'offers') ? 'active' : '' ?>">🏷️ Offers</a>
+        </li>
+
+        <li>
+            <a href="dashboard.php?view=birthday_cakes" class="<?= (isset($_GET['view']) && $_GET['view'] == 'birthday_cakes') ? 'active' : '' ?>">🎈 Birthday Cakes</a>
+        </li>
+
+        <li>
+            <a href="dashboard.php?view=porosite" class="<?= (isset($_GET['view']) && $_GET['view'] == 'porosite') ? 'active' : '' ?>">📦 Orders</a>
+        </li>
+
+        <li>
+            <a href="dashboard.php?view=users" class="<?= (isset($_GET['view']) && $_GET['view'] == 'users') ? 'active' : '' ?>">👥 Users</a>
+        </li>
+
+        <hr style="opacity: 0.2; margin: 10px 0;">
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </aside>
 
     <main class="main">
-
         <header class="topbar">
-            <h1>Dashboard</h1>
-            <p>Welcome, Admin</p>
+            <h1>Admin Panel - <?= ucfirst($view) ?></h1>
+            <div style="display:flex; align-items:center; gap:15px;">
+        <a href="add_product.php" class="btn-add" style="background:#4caf50; color:white; padding:8px 15px; border-radius:5px; text-decoration:none;">+ Shto të Re</a>
+            <p>Welcome, <?= $_SESSION['username'] ?? 'Admin' ?></p>
         </header>
 
         <section class="cards">
-            <div class="card">
-                <h3>Total Products</h3>
-                <p>18</p>
-            </div>
-            <div class="card">
-                <h3>Orders Today</h3>
-                <p>7</p>
-            </div>
-            <div class="card">
-                <h3>Monthly Revenue</h3>
-                <p>€1,240</p>
-            </div>
-            <div class="card">
-                <h3>Top Product</h3>
-                <p>Red Velvet</p>
-            </div>
+            <div class="card"><h3>Total Items</h3><p><?= $totalProducts ?></p></div>
+            <div class="card"><h3>Orders Today</h3><p><?= $ordersToday ?></p></div>
+            <div class="card"><h3>Revenue</h3><p>€<?= number_format($totalRevenue, 2) ?></p></div>
+            <div class="card"><h3>Users</h3><p><?= $totalUsers ?></p></div>
         </section>
-
-        <section class="simple-chart">
-    <h2>Weekly Sales (€)</h2>
-  <div class="bars">
-    <div class="bar" style="height:40%" title="Mon: 120€"></div>
-    <div class="bar" style="height:30%" title="Tue: 90€"></div>
-    <div class="bar" style="height:50%" title="Wed: 150€"></div>
-    <div class="bar" style="height:25%" title="Thu: 80€"></div>
-    <div class="bar" style="height:67%" title="Fri: 200€"></div>
-    <div class="bar" style="height:100%" title="Sat: 300€"></div> 
-    <div class="bar" style="height:83%" title="Sun: 250€"></div>
-</div>
-    <div class="labels">
-        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-    </div>
-</section>
-
 
         <section class="table-box">
-            <h2>Latest Orders</h2>
+            <h2>Management: <?= ucfirst($view) ?></h2>
             <table>
-                <tr>
-                    <th>Customer</th>
-                    <th>Product</th>
-                    <th>Qty</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Ana</td>
-                    <td>Cherry Kiss</td>
-                    <td>1</td>
-                    <td>31-01-2026</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>John</td>
-                    <td>Fruity Dream</td>
-                    <td>6</td>
-                    <td>31-01-2026</td>
-                    <td><span class="status ready">Ready</span></td>
-                </tr>
-                <tr>
-                    <td>Elona</td>
-                    <td>Red Velvet</td>
-                    <td>2</td>
-                    <td>30-01-2026</td>
-                    <td><span class="status delivered">Delivered</span></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <?php if($view == 'users'): ?>
+                            <th>Emri</th><th>Username</th><th>Role</th><th>Email</th>
+                        <?php elseif($view == 'porosite'): ?>
+                            <th>Klienti</th><th>Telefon</th><th>Shuma</th><th>Statusi</th>
+                        <?php elseif($view == 'products'): ?>
+                            <th>Titulli</th><th>Imazhi</th><th>Krijuar</th>
+                        <?php else: ?>
+                            <th>Emri</th><th>Çmimi</th><th>Imazhi</th>
+                        <?php endif; ?>
+                        <th>Veprimi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $data = $pdo->query("SELECT * FROM $view ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($data as $row): ?>
+                    <tr>
+                        <?php if($view == 'users'): ?>
+                            <td><?= $row['name'] ?></td><td><?= $row['username'] ?></td><td><?= $row['role'] ?></td><td><?= $row['email'] ?></td>
+                        <?php elseif($view == 'porosite'): ?>
+                            <td><?= $row['emri_klientit'] ?></td><td><?= $row['nr_telefonit'] ?></td><td>€<?= $row['shuma_totale'] ?></td><td><span class="status pending"><?= $row['statusi_porosise'] ?></span></td>
+                        <?php elseif($view == 'products'): ?>
+                            <td><?= $row['title'] ?></td><td><img src="<?= $row['image'] ?>" width="40"></td><td><?= $row['created_at'] ?></td>
+                        <?php elseif($view == 'birthday_cakes'): ?>
+                             <td>Cake #<?= $row['id'] ?></td><td>-</td><td><img src="homepage/<?= $row['imazhi'] ?>" width="40"></td>
+                        <?php else: ?>
+                            <td><?= $row['emri'] ?></td><td>€<?= $row['cmimi'] ?></td><td><img src="homepage/<?= $row['imazhi'] ?>" width="40"></td>
+                        <?php endif; ?>
+                        
+                        <td>
+                            <a href="dashboard.php?delete_id=<?= $row['id'] ?>&from=<?= $view ?>" onclick="return confirm('A jeni i sigurt?')">🗑️</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
         </section>
-
     </main>
 </div>
-
 </body>
 </html>
