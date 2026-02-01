@@ -5,7 +5,6 @@ require_once 'Database.php';
 $db = new Database();
 $pdo = $db->getConnection();
 
-
 if (isset($_POST['add_to_cart'])) {
     $item = [
         'id' => $_POST['id'],
@@ -18,7 +17,14 @@ if (isset($_POST['add_to_cart'])) {
     }
     
     $_SESSION['cart'][] = $item;
-    header("Location: porosite.php"); 
+
+    
+    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        echo count($_SESSION['cart']);
+        exit; 
+    }
+
+    header("Location: cakes.php"); 
     exit();
 }
 
@@ -33,7 +39,6 @@ $stmtBday = $pdo->prepare($queryBday);
 $stmtBday->execute();
 $bday_cakes = $stmtBday->fetchAll(PDO::FETCH_ASSOC);
 
-
 $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -45,34 +50,17 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <title>SweetCakes - Menu</title>
     <link rel="stylesheet" href="cakes.css">
     <style>
-        
-        .shopping-cart-container {
-            position: relative;
-            display: inline-block;
-        }
+        .shopping-cart-container { position: relative; display: inline-block; }
         .cart-count-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 12px;
-            font-weight: bold;
+            position: absolute; top: -5px; right: -5px;
+            background: red; color: white; border-radius: 50%;
+            padding: 2px 7px; font-size: 12px; font-weight: bold;
             border: 2px solid white;
         }
         .add-cart-btn {
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 14px;
-            transition: 0.3s;
-            width: 100%;
+            background-color: #ff69b4; color: white; border: none;
+            padding: 8px 12px; cursor: pointer; border-radius: 5px;
+            margin-top: 10px; font-size: 14px; transition: 0.3s; width: 100%;
         }
         .add-cart-btn:hover { background-color: #ff1493; }
         .menu_info h3 { margin-bottom: 5px; }
@@ -89,7 +77,6 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <li><a href="cakes.php">Cakes</a></li>
                 <li><a href="offers.php">Offers</a></li>
                 <li><a href="build.php">Build your own</a></li>
-                
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php else: ?>
@@ -97,11 +84,11 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </ul>
 
-            <a href="porosite.php" class="shopping-cart-container">
+            <a href="porosite.php" class="shopping-cart-container" id="cart-anchor">
                 <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
-                <?php if($cart_count > 0): ?>
-                    <span class="cart-count-badge"><?php echo $cart_count; ?></span>
-                <?php endif; ?>
+                <span class="cart-count-badge" id="cart-count" style="<?php echo ($cart_count > 0) ? '' : 'display:none;'; ?>">
+                    <?php echo $cart_count; ?>
+                </span>
             </a>
         </nav>
 
@@ -131,11 +118,12 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                             <h2><?php echo htmlspecialchars($cake['emri']); ?></h2>
                             <h3>€<?php echo number_format($cake['cmimi'], 2); ?></h3>
                             
-                            <form method="POST">
+                            <form class="ajax-cart-form">
                                 <input type="hidden" name="id" value="<?php echo $cake['id']; ?>">
                                 <input type="hidden" name="emri" value="<?php echo htmlspecialchars($cake['emri']); ?>">
                                 <input type="hidden" name="cmimi" value="<?php echo $cake['cmimi']; ?>">
-                                <button type="submit" name="add_to_cart" class="add-cart-btn">Shto në Shportë</button>
+                                <input type="hidden" name="add_to_cart" value="1">
+                                <button type="submit" class="add-cart-btn">Shto në Shportë</button>
                             </form>
                         </div>
                     </div>
@@ -168,22 +156,34 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     </div>
 
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>SweetCakes</h3>
-                <p>Cakes made with love and the finest ingredients.</p>
-            </div>
-            <div class="footer-section contact">
-                <h4>Contact Us</h4>
-                <p>Email: info@sweetcakes.com</p>
-                <p>Phone: +383 44 000 000</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            © 2026 SweetCakes. All Rights Reserved.
-        </div>
+        <div class="footer-bottom">© 2026 SweetCakes. All Rights Reserved.</div>
     </footer>
 
+    <script>
+    document.querySelectorAll('.ajax-cart-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const formData = new FormData(this);
+
+            fetch('cakes.php', {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.text())
+            .then(count => {
+                const badge = document.getElementById('cart-count');
+                badge.innerText = count;
+                badge.style.display = 'block'; 
+                
+               
+                alert("U shtua në shportë!");
+            })
+            .catch(error => console.error('Gabim:', error));
+        });
+    });
+    </script>
     <script src="cakes.js"></script>
 </body>
 </html>
