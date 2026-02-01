@@ -1,5 +1,7 @@
-<?php 
+<?php
 session_start();
+
+$cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
     
@@ -9,6 +11,38 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .shopping-cart-container {
+            position: relative;
+            display: inline-block;
+        }
+        .cart-count-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        .add-cart-btn {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .add-cart-btn:hover { background-color: #ff1493; }
+        .menu_info h3 { margin-bottom: 5px; }
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -38,12 +72,15 @@ session_start();
             echo '<li><a href="loginpage.php">Login</a></li>';
             }
         ?>
-        
+
         </ul>
 
-            <a href="loginpage.php" class="shopping-cart">
-            <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
-        </a>
+            <a href="porosite.php" class="shopping-cart-container">
+        <img src="homepage/Screenshot 2025-12-15 193709.png" alt="Shporta" width="50">
+        <?php if($cart_count > 0): ?>
+            <span class="cart-count-badge"><?php echo $cart_count; ?></span>
+        <?php endif; ?>
+    </a>
 
         </nav>
 
